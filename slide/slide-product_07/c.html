@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	 <div class="slider">
+	  <div class="arrows">
+	    <a class="previous" href="#"><</a>
+	    <a class="next" href="#">></a>
+	  </div>
+	  <div class="slides">
+			<div class="slide active blue" >
+				<h2>Timezones</h2>
+				<p>Clocks+ helps you break the barriers of space and time to get information for any city you like. You can search for and organise your favorite cities so that you can easily find out the correct local time.</p>
+				
+			</div>
+			<div class="slide white" >
+				<h2>Alarms</h2>
+				<p>Nobody wants to miss out on important events, but sometimes, it’s hard to find the time in another city. Clocks+ lets you set alarms for your favorite cities in a simple and intuitive way.</p>
+			
+			</div>
+			<div class="slide red" >
+				<h2>Widgets/Today Extension</h2>
+				<p>Clocks+ wouldn’t be a modern app without Widgets. Your favorite cities appear in the Today View with just a swipe down, for quick glancing, Did we mention that they look awesome, too?</p>
+				
+			</div>
+		</div>
+		<div class="bullets">
+		</div>
+	</div>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script type="text/javascript">
+  		var $slider = $(".slider"),
+  			$bullets = $(".bullets");
+  		//tinh chieu cao cua slider bao gom ca padding
+		function calculateHeight(){
+			var height = $(".slide.active").outerHeight();
+			$slider.height(height);
+		}
+		// khi thay doi kich co thi se thay doi
+		$(window).resize(function() {
+			calculateHeight();
+		    // clearTimeout($.data(this, 'resizeTimer'));
+		});
+		//
+		function resetSlides(){
+			$(".slide.inactive").removeClass("inactiveRight").removeClass("inactiveLeft");
+		}
+		//
+		function gotoSlide($activeSlide,$slide,className){
+			 $activeSlide.removeClass("active").addClass("inactive"+className);
+			 $slide.removeClass("inactive").addClass("active");
+			 calculateHeight();
+			 resetBullets();
+			 setTimeout(resetSlides, 300);
+		}
+		//
+		$(".next").on("click", function(){
+			 var $activeSlide = $(".slide.active"),
+				 $nextSlide = $activeSlide.next(".slide").length != 0 ? $activeSlide.next(".slide") : $(".slide:first-child");
+				 // console.log($nextSlide);
+				 gotoSlide($activeSlide, $nextSlide, "inactiveLeft");
+		});
+		$(".previous").on("click",  function(){
+			 var $activeSlide = $(".slide.active"),
+				 $prevSlide = $activeSlide.prev(".slide").length != 0 ? $activeSlide.prev(".slide") : $(".slide:last-child");
+
+				 gotoSlide($activeSlide, $prevSlide, "inactiveRight");
+		});
+		$(document).on("click", ".bullet", function(){
+			if($(this).hasClass("active")){
+				return;
+			}
+			var $activeSlide = $(".slide.active");
+			var currentIndex = $activeSlide.index();
+			var targetIndex = $(this).index();
+			// console.log(currentIndex, targetIndex);
+			var $theSlide = $(".slide:nth-child("+(targetIndex+1)+")");
+			gotoSlide($activeSlide, $theSlide, currentIndex > targetIndex ? "inactiveRight" : "inactiveLeft");
+		})
+		function addBullets(){
+			var total = $(".slide").length, index = $(".slide.active").index();
+			for (var i=0; i < total; i++){
+				var $bullet = $("<div>").addClass("bullet");
+				if(i==index){
+					$bullet.addClass("active");	
+				}
+				$bullets.append($bullet);
+			}
+		}
+		function resetBullets(){
+			$(".bullet.active").removeClass("active");
+			var index = $(".slide.active").index()+1;
+			console.log(index);
+			$(".bullet:nth-child("+index+")").addClass("active");
+		}
+		addBullets();
+		calculateHeight();	
+  </script>
+</body>
+</html>

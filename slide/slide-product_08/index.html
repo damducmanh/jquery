@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<nav class="nav">
+	<h1>Gummy slider</h1>
+	<p class="author">by Lewi Hussey</p>
+	</nav>
+	<div class="slider">
+	<div class="slider-inner">
+		<div class="slide active">1</div>
+		<div class="slide">2</div>
+		<div class="slide">3</div>
+		<div class="slide">4</div>
+		<div class="slide">5</div>
+		<div class="slide">6</div>
+		<div class="slide">7</div>
+		<div class="slide">8</div>
+	</div>
+	<nav class="slider-nav">
+		<div class="active"></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+	</nav>
+	</div>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script type="text/javascript">
+$(document).ready(function(){
+		var slide = $(".slide");
+		var viewWidth = $(window).width();
+		var sliderInner = $(".slider-inner");
+		var childrenNo = sliderInner.children().length;
+		sliderInner.width( viewWidth * childrenNo );
+		$(window).resize(function(){
+			viewWidth = $(window).width();
+		});	
+		function setWidth(){
+			slide.each(function(){
+				$(this).width(viewWidth);
+				$(this).css("left", viewWidth * $(this).index());
+			});	
+		}
+	    function setActive(element){
+		var clickedIndex = element.index();
+		$(".slider-nav .active").removeClass("active");
+		element.addClass("active");
+		sliderInner.css("transform", "translateX(-" + clickedIndex * viewWidth + "px) translateZ(0)");
+		
+		$(".slider-inner .active").removeClass("active");
+		$(".slider-inner .slide").eq(clickedIndex).addClass("active");
+	    }
+	
+	setWidth();
+	
+	$(".slider-nav > div").on("click", function(){
+		setActive($(this));
+	});
+	
+	$(window).resize(function(){
+		setWidth();
+	});
+	
+	setTimeout(function(){
+		$(".slider").fadeIn(500);
+	}, 2000);
+});
+
+
+	</script>
+</body>
+</html>
