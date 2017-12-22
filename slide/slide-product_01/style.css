@@ -1,0 +1,78 @@
+* {
+   font-family: arial;
+}
+p, a {
+  color: #000;
+  font-size: 0.8em;
+  padding: 0;
+  margin: 0 0 5px 0;
+}
+h2 {
+  font-size: 1.2em;
+  margin: 5px 0;
+}
+#carouselOuter {
+    background-color: #DDD;
+    border-bottom: 1px solid #DDDDDD;
+    border-top: 1px solid #DDDDDD;
+    height: 288px;
+    margin: 0 auto;
+    overflow: hidden;
+    padding: 0;
+    position: relative;
+    width: 1300px;
+}
+#carouselList {
+    background-color: #DDD;
+    margin: 0;
+    padding: 0;
+    width: 2200px;
+    position: relative;
+    left: 0;
+}
+#carouselList li {
+    background-color: #DDD;
+    border-right: 0px solid #D8DAD9;
+    display: block;
+    float: left;
+    list-style-type: none;
+    margin: 20px 0;
+    padding-left:  90px;
+    width: 300px;
+}
+#carouselList li h2 {
+    background-color: #DDD;
+    padding: 0;
+}
+.carouselMove {
+    display: block;
+    z-index: 2;
+    width: 35px;
+    height: 292px;
+    cursor: pointer;
+    background-position: 0px 0px;
+    filter: alpha(opacity=60);
+    opacity: 0.9;
+}
+#prevBtn {
+    position: absolute;
+    top: 100px;
+    height: 100px;
+    width: 40px;
+    left: 20px;
+    background-color: grey;
+}
+#nextBtn {
+    position: absolute;
+    top: 100px;
+    height: 100px;
+    width: 40px;
+    right: 20px;
+    background-color: grey;
+}
+#prevBtn:hover, #nextBtn:hover {
+    background-position: 0px 292px;
+}
+#prevBtn:active, #nextBtn:active {
+    background-position: 0px 292px;
+}
